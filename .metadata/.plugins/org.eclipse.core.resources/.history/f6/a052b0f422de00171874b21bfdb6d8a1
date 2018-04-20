@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.bdqn.spz.hibernate.entity.Student" table="Student" dynamic-update="true">
+        <!-- 学号 -->
+        <id name="studentNo" column="studentNo" type="java.lang.Integer">
+            <generator class="assigned"/>
+        </id>
+        <!--密码 -->
+        <property name="loginPwd" column="loginPwd" type="java.lang.String"></property>
+        <!-- <property name="loginPwd">
+         	<column name="loginPwd" length=""></column>
+         	<type name="java.lang.String"></type>
+        </property> -->
+        <!--学生姓名 -->
+        <property name="studentName" column="studentName" type="java.lang.String"></property>
+        <!--性别 -->
+        <property name="sex" column="sex" type="java.lang.String"></property>
+        <!--年级对象(多对一) -->
+        <!--  
+        <many-to-one name="字段名" column="外键" class="类的全限定名"></many-to-one>
+        lazy属性:
+        	true:延迟加载(默认值)
+        	extra:增强延迟加载
+        	false:立即加载
+         -->
+         <one-to-one name=""></one-to-one>
+       	<many-to-one name="grade" column="gradeId" class="com.bdqn.spz.hibernate.entity.Grade"></many-to-one>
+       	<!--教师集合(多对多)-->
+       	<!-- <bag name="字段名" table="关系表名" cascade="save-update">
+       		<key column="本类的外键"></key>
+       		<many-to-many class="要查询的类的全限定名" column="该类相应表的外键"></many-to-many>
+       	</bag> -->
+       	<bag name="teachers" table="relation_ts" cascade="save-update">
+       		<key column="studentNo"></key>
+       		<many-to-many class="com.bdqn.spz.hibernate.entity.Teacher" column="teacherId"></many-to-many>
+       	</bag>
+       	<!--联系电话 -->
+        <property name="phone" column="phone" type="java.lang.String"></property>
+        <!-- 地址 -->
+        <property name="address" column="address" type="java.lang.String"></property>
+        <!-- 出生日期 -->
+        <property name="bornDate" column="bornDate" type="java.util.Date"></property>
+        <!-- 电子邮箱 -->
+        <property name="email" column="email" type="java.lang.String"></property>
+        <!-- 身份证号 -->
+        <property name="identityCard" column="identityCard" type="java.lang.String"></property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,171 @@
+package com.bdqn.spz.hibernate.dao.impl;
+
+import java.io.Serializable;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import com.bdqn.spz.hibernate.dao.IGradeDao;
+import com.bdqn.spz.hibernate.entity.Grade;
+import com.bdqn.spz.hibernate.entity.Student;
+import com.bdqn.spz.hibernate.util.HibernateUtil;
+
+/**
+ * Dao层年纪实现类
+ * 
+ * @author 施鹏振
+ *
+ */
+public class GradeDaoImpl implements IGradeDao {
+
+	private static Session session = HibernateUtil.currentSession();
+
+	// 通过Session的get()方法根据id加载指定对象,如果没数据对象是null,调用属性会报异常(java.lang.NullPointerException)
+	@Override
+	public Grade get(Serializable gradeId) {
+		return (Grade) session.get(Grade.class, gradeId);
+	}
+
+	// 通过Session的load()方法根据id加载指定对象,如果没数据对象不是null,调用属性会抛异常
+	@Override
+	public Grade load(Serializable gradeId) {
+		return (Grade) session.load(Grade.class, gradeId);
+	}
+
+	// 保存指定的Grade对象,返回OID
+	@Override
+	public Integer save(Grade grade) {
+		return (Integer) session.save(grade);
+	}
+
+	// load修改,id为空抛异常
+	public void loadUpdate(Grade grade) {
+		Grade grade1 = (Grade) session.load(Grade.class, grade.getGradeId());
+		grade1.setGradeName(grade.getGradeName());
+		System.out.println("修改成功");
+	}
+
+	// 更新指定的Grade对象,Id存在修改,不存在就不修改
+	@Override
+	public void update(Grade grade) {
+		session.update(grade);
+	}
+
+	// 删除指定的Grade对象
+	@Override
+	public void delete(Grade grade) {
+		session.delete(grade);
+	}
+
+	// SaveOrUpdate()先查询数据，如果存在进行修改，若不存在则新增
+	public void SaveOrUpdate(Grade grade) {
+		session.update(grade);
+	}
+
+	// 使用merge()方法将游离对象的数据合并到拥有相同OID的持久态对象中或者保存临时对象的副本，得到新的持久态对象(不对改变对象状态,先查询数据，如果存在进行修改，若不存在则新增)
+	@Override
+	public Grade merge(Grade grade) {
+		return (Grade) session.merge(grade);
+	}
+
+	// 单参数入参
+	@SuppressWarnings("unchecked")
+	public void findGradeById(Integer gradeId) {
+		// String hql = "from Grade where gradeId = ?";
+		String hql = "from Grade where gradeId =:gradeId";
+		Query query = session.createQuery(hql);
+		// query.setInteger(0,gradeId); // 为占位符赋值
+		query.setInteger("gradeId", gradeId); // 为占位符赋值
+		Iterator<Grade> grades = query.iterate();
+		while (grades.hasNext()) {
+			Grade grade = (Grade) grades.next();
+			System.out.println(grade.getGradeName());
+			for (Student student : grade.getStudents()) {
+				System.out.println(student);
+				System.out.println(student.getStudentNo());
+				System.out.println(student.getStudentName());
+			}
+		}
+	}
+
+	// 多参数入参-数组
+	@SuppressWarnings("unchecked")
+	public void findGradeByobjects(Object[] objects) {
+		String hql = "from Grade where gradeId =? and gradeName=?";
+		Query query = session.createQuery(hql);
+		if (objects != null && objects.length > 0) {
+			for (int i = 0; i < objects.length; i++) {
+				query.setParameter(i, objects[i]); // 为占位符赋值
+			}
+		}
+		for (Grade grade : (List<Grade>) query.list()) {
+			System.out.println(grade.getGradeName());
+		}
+	}
+
+	// 多参数入参-Map
+	@SuppressWarnings("unchecked")
+	public void findByGradeByMap(Map<K, V> grade) {
+		String hql = "from Grade where gradeId =:gradeId and gradeName=:gradeName";
+		Query query = session.createQuery(hql);
+		query.setProperties(grade);
+		for (Grade grade2 : (List<Grade>) query.list()) {
+			System.out.println(grade2.getGradeName());
+		}
+	}
+
+	// 对象入参
+	@SuppressWarnings("unchecked")
+	public void findByGrade(Grade grade) {
+		String hql = "from Grade where gradeId =:gradeId and gradeName=:gradeName";
+		Query query = session.createQuery(hql);
+		query.setProperties(grade);
+		for (Grade grade2 : (List<Grade>) query.list()) {
+			System.out.println(grade2.getGradeName());
+		}
+	}
+
+	// 查询单个字段
+	@SuppressWarnings("unchecked")
+	public void findGradeBySelect() {
+		String hql = "select gradeName from Grade";
+		Query query = session.createQuery(hql);
+		for (String gradeName : (List<String>) query.list()) {
+			System.out.println(gradeName);
+		}
+	}
+
+	// 查询多个字段
+	@SuppressWarnings("unchecked")
+	public void findAllGradeList() {
+		String hql = "select gradeId,gradeName from Grade";
+		Query query = session.createQuery(hql);
+		for (Object[] grades : (List<Object[]>) query.list()) {
+			System.out.println(grades[0]);
+			System.out.println(grades[1]);
+		}
+	}
+
+	// select子句查询对象集合(必须有相应的构造方法)
+	@SuppressWarnings("unchecked")
+	public void findAllGradeList_2() {
+		String hql = "select new Grade(gradeId,gradeName) from Grade";
+		Query query = session.createQuery(hql);
+		for (Grade grade : (List<Grade>) query.list()) {
+			System.out.println(grade.getGradeName());
+		}
+	}
+
+	public static void main(String[] args) {
+		Transaction transaction = session.beginTransaction();
+		Grade grade = new Grade();
+		grade.setGradeId(1);
+		grade.setGradeName("S1");
+		new GradeDaoImpl().loadUpdate(grade);
+		transaction.commit();
+	}
+}

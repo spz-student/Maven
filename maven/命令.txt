@@ -1,0 +1,34 @@
+打包package 
+清除clean 
+编译 compile
+忽略junit测试 maven.test.skip=true 
+运行junit测试 test
+上传到本地仓库 install
+上传到私服 deploy
+设置端口号-server.port=9090
+控制台运行jar java -jar C://...*.jar
+
+cmd中 要加上mvn前缀后面加命令
+创建项目
+mvn archetype:generate
+	-DgroupId=com.spz 项目属于的分组
+	-DartifactId=helloword 项目名称
+	-Dpackage=com.spz.helloword 项目分包
+	-Dversion=1.0-SNAPAHOT 版本号
+	-DarchetypeCatalog=internal 模板请求类型
+上传jar到本地仓库  
+mvn install:install-file 
+	-DgroupId=com.oracle 
+	-DartifactId=ojdbc6 
+	-Dversion=11.2.0.1.0 
+	-Dpackaging=jar 
+	-Dfile=F:\Learning\Java\jar\oracle-jdbc\ojdbc6-11.2.0.4.jar
+上传jar包到私服
+	mvn deploy:deploy-file 
+	-DgroupId=com.oracle 
+	-DartifactId=ojdbc6 
+	-Dversion=11.2.0.1.0 
+	-Dpackaging=jar 
+	-Dfile=F:\Learning\Java\jar\oracle-jdbc\ojdbc6-11.2.0.4.jar
+	-Durl=http://localhost:8081/repository/maven-releases/ 
+	-DrepositoryId=nexus-releases

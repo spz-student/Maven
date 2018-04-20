@@ -1,0 +1,15 @@
+/**
+ * 
+ */
+package com.bdqn.spz.scott.entity;
+
+/**
+ * @author 施鹏振
+ * date 2017年12月11日
+ * time 下午4:42:53
+ */
+public class Pro implements java.io.Serializable{
+
+	private Integer proId;
+	
+}

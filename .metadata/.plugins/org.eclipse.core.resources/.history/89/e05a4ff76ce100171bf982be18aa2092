@@ -1,0 +1,19 @@
+<%@ page language="java" contentType="text/html; charset=GBK"
+	pageEncoding="GBK"%>
+<!DOCTYPE html PUBLIC 
+	"-//W3C//DTD XHTML 1.0 Transitional//EN" 
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>登录失败</title>
+	</head>
+	<body>
+		<h1>
+			登录失败
+		</h1>
+		<div>
+			用户名或密码不匹配。
+			
+		</div>
+	</body>
+</html>

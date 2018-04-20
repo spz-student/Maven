@@ -1,0 +1,59 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.bdqn.spz</groupId>
+		<artifactId>maven</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>maven-module1</artifactId>
+	<packaging>jar</packaging>
+	<name>maven-module1</name>
+	<description>maven-module1 project for AggregationMaven</description>
+
+	<!--插件依赖 -->
+	<build>
+		<!-- 生成可执行的jar -->
+		<finalName>spz-maven</finalName><!--生成jar的名字-->
+		<plugins>
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<charset>${project.build.sourceEncoding}</charset>
+					<encoding>${project.build.sourceEncoding}</encoding>
+					<archive>
+						<manifest>
+							<!-- 把jar依赖的jar放到lib下 -->
+							<addClasspath>true</addClasspath>
+							<!-- jar放到的位置(默认放在lib下) -->
+							<classpathPrefix>lib/</classpathPrefix>
+							<!-- 启动时加载的类 -->
+							<mainClass>com.bdqn.spz.maven.maven_module1.Test</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptors>
+						<descriptor>src/main/assembly/package.xml</descriptor>
+					</descriptors>
+				</configuration>
+				<!-- 插件目的 -->
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

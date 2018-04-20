@@ -1,0 +1,59 @@
+package com.bdqn.spz.scott.entity;
+
+import java.util.Date;
+
+/**
+ * 员工实体类
+ * @author 施鹏振
+ */
+public class Emp {
+
+	// 员工编号
+	private Integer empNo;
+	// 员工姓名
+	private String empName;
+	// 职位
+	private String job;
+	// 工资
+	private Double salary;
+	// 入职时间
+	private Date hireDate;
+	// 所属部门
+	private Dept dept;
+	public Integer getEmpNo() {
+		return empNo;
+	}
+	public void setEmpNo(Integer empNo) {
+		this.empNo = empNo;
+	}
+	public String getEmpName() {
+		return empName;
+	}
+	public void setEmpName(String empName) {
+		this.empName = empName;
+	}
+	public String getJob() {
+		return job;
+	}
+	public void setJob(String job) {
+		this.job = job;
+	}
+	public Double getSalary() {
+		return salary;
+	}
+	public void setSalary(Double salary) {
+		this.salary = salary;
+	}
+	public Date getHireDate() {
+		return hireDate;
+	}
+	public void setHireDate(Date hireDate) {
+		this.hireDate = hireDate;
+	}
+	public Dept getDept() {
+		return dept;
+	}
+	public void setDept(Dept dept) {
+		this.dept = dept;
+	}
+}

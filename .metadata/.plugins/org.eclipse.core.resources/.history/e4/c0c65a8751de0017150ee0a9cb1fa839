@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.bdqn.spz.scott.entity.Emp" table="EMP" dynamic-update="true">
+        <id name="empNo" column="empNo" type="integer">
+        	<generator class="assigned"/>
+        </id>
+        <property name="empName" column="empName" type="string"></property>
+        <property name="job" column="job" type="string"></property>
+        <property name="salary" column="sal" type="double"></property>
+        <property name="hireDate" column="hireDate" type="date"></property>
+        <!-- 一对一 -->
+        <!-- <one-to-one name="dept" class="com.bdqn.spz.scott.entity.Dept"></one-to-one> -->
+        <!-- 多对一 -->
+        <many-to-one name="dept" column="deptNo" class="com.bdqn.spz.scott.entity.Dept"></many-to-one>
+        <!--多对多 -->
+        <bag name="pros" inverse="true">
+        	<key column="empNo"></key>
+        	<many-to-many class="com.bdqn.spz.scott.entity.Pro"/>
+        </bag>
+    </class>
+</hibernate-mapping>

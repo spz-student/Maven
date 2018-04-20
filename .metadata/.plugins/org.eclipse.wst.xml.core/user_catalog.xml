@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+  <public publicId="-//mybatis.org//DTD Config 3.0//EN" uri="file:///F:/Learning/Java/jar/mybatis/mybatis-3.2.2/mybatis-3-config.dtd" webURL="http://mybatis.org/dtd/mybatis-3-config.dtd"/>
+  <public publicId="-//mybatis.org//DTD Mapper 3.0//EN" uri="file:///F:/Learning/Java/jar/mybatis/mybatis-3.2.2/mybatis-3-mapper.dtd" webURL="http://mybatis.org/dtd/mybatis-3-mapper.dtd"/>
+  <public publicId="-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" uri="file:///F:/Learning/Java/jar/mybatis/mybatis反向生成/mybatis-generator-core-1.3.2/lib/mybatis-generator-config_1_0.dtd" webURL="http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd"/>
+</catalog>

@@ -1,0 +1,238 @@
+package com.bdqn.spz.scott.test;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import com.bdqn.spz.scott.entity.Dept;
+import com.bdqn.spz.scott.util.HibernateUtil;
+
+public class Test {
+
+	private static Session session = HibernateUtil.currentSession();
+
+	// get查询
+	public void get() {
+		Dept dept = (Dept) session.get(Dept.class, 6);
+		System.out.println(dept.getDeptName());
+		System.out.println(dept.getLocation());
+	}
+
+	// load查询
+	public void load() {
+		Dept dept = (Dept) session.load(Dept.class, 6);
+		System.out.println(dept.getDeptName());
+		System.out.println(dept.getLocation());
+	}
+
+	// load修改
+	public void loadUpdate() {
+		Dept dept = (Dept) session.load(Dept.class, 6);
+		dept.setLocation("北京");
+		System.out.println("修改成功");
+	}
+
+	// 修改
+	public void update() {
+		Dept dept = new Dept();
+		dept.setDeptNo(6);
+		dept.setDeptName("销售部");
+		dept.setLocation("济南");
+		session.update(dept);
+		System.out.println("修改成功");
+	}
+
+	// 删除
+	public void delete() {
+		Dept dept = (Dept) session.load(Dept.class, 6);
+		session.delete(dept);
+		System.out.println("删除成功");
+	}
+
+	// 新增
+	public void save() {
+		Dept dept = new Dept();
+		dept.setDeptNo(6);
+		dept.setDeptName("销售部");
+		dept.setLocation("济南");
+		session.save(dept);
+		System.out.println("新增成功");
+	}
+
+	// SaveOrUpdate()先查询数据，如果存在进行修改，若不存在则新增
+	public void saveOrUpdate() {
+		Dept dept = new Dept();
+		dept.setDeptNo(6);
+		dept.setDeptName("销售部");
+		dept.setLocation("济南");
+		session.saveOrUpdate(dept);
+		System.out.println("新增成功");
+	}
+
+	// 使用merge()方法将游离对象的数据合并到拥有相同OID的持久态对象中或者保存临时对象的副本，得到新的持久态对象(不对改变对象状态,先查询数据，如果存在进行修改，若不存在则新增)
+	public void merge() {
+		Dept dept = new Dept();
+		dept.setDeptNo(6);
+		dept.setDeptName("销售部");
+		dept.setLocation("济南");
+		dept = (Dept) session.merge(dept);
+		System.out.println(dept.getLocation());
+	}
+
+	// 查询全部部门
+	@SuppressWarnings("unchecked")
+	public void findAllDept() {
+		String hql = "from Dept";
+		Query query = session.createQuery(hql);
+		// List<Dept> depts= query.list();//立即加载，生成一条sql语句，查询所有记录
+		// for (Dept dept : depts) {
+		// System.out.println(dept.getDeptName());
+		// }
+		Iterator<Dept> iterator = query.iterate();// 懒加载，首先查询所有主键值，然后在需要这个对象到的其他属性时，才按主键查询需要的属性
+		while (iterator.hasNext()) {
+			Dept dept = iterator.next();
+			System.out.println(dept.getDeptName());
+		}
+	}
+
+	// 根据部门编号查询部门(单参数入参)
+	@SuppressWarnings("unchecked")
+	public void findDeptBydeptNo() {
+		String hql = "from Dept d where d.deptNo=:deptNo";
+		// String hql = "from Dept d where d.deptNo=?";
+		Query query = session.createQuery(hql);
+		// query.setInteger(0,1); // 为占位符赋值
+		query.setInteger("deptNo", 1); // 为占位符赋值
+		List<Dept> depts = query.list();// 立即加载，生成一条sql语句，查询所有记录
+		for (Dept dept : depts) {
+			System.out.println(dept.getDeptName());
+		}
+	}
+
+	// 查询部门(多参数入参-数组)
+	@SuppressWarnings("unchecked")
+	public void findDeptBydept1() {
+		String hql = "from Dept d where d.deptNo=? and d.deptName=?";
+		// String hql = "from Dept d where d.deptNo=?";
+		Query query = session.createQuery(hql);
+		Object[] objects = { 1, "人事部" };
+		if (objects != null && objects.length > 0) {
+			for (int i = 0; i < objects.length; i++) {
+				query.setParameter(i, objects[i]); // 为占位符赋值
+			}
+		}
+		List<Dept> depts = query.list();// 立即加载，生成一条sql语句，查询所有记录
+		for (Dept dept : depts) {
+			System.out.println(dept.getDeptName());
+		}
+	}
+
+	// 查询部门(多参数入参-Map)
+	@SuppressWarnings("unchecked")
+	public void findDeptBydept2() {
+		String hql = "from Dept d where d.deptNo=:deptNo and d.deptName=:deptName";
+		// String hql = "from Dept d where d.deptNo=?";
+		Query query = session.createQuery(hql);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("deptNo", 1);
+		map.put("deptName", "人事部");
+		query.setProperties(map);
+		List<Dept> depts = query.list();// 立即加载，生成一条sql语句，查询所有记录
+		for (Dept dept : depts) {
+			System.out.println(dept.getDeptName());
+		}
+	}
+
+	// 查询部门(多参数入参-对象)
+	@SuppressWarnings("unchecked")
+	public void findDeptBydept3() {
+		String hql = "from Dept d where d.deptNo=:deptNo and d.deptName=:deptName";
+		// String hql = "from Dept d where d.deptNo=?";
+		Query query = session.createQuery(hql);
+		Dept dept = new Dept();
+		dept.setDeptNo(1);
+		dept.setDeptName("人事部");
+		query.setProperties(dept);
+		List<Dept> depts = query.list();// 立即加载，生成一条sql语句，查询所有记录
+		for (Dept dept1 : depts) {
+			System.out.println(dept1.getDeptName());
+		}
+	}
+
+	// 查询记录总数
+	public void count() {
+		String hql = "select count(*) from Dept";
+		Query query = session.createQuery(hql);
+		Long count = (Long) query.uniqueResult();// uniqueResult():返回唯一对象
+		System.out.println(count);
+	}
+
+	// 分页
+	@SuppressWarnings("unchecked")
+	public void paging() {
+		String hql = "from Dept d where d.deptNo=1";
+		Query query = session.createQuery(hql);
+		query.setFirstResult((1 - 1) * 2).setMaxResults(2); // setFirstResult((当前页-1)*页大小
+		query.setMaxResults(2);// setMaxResults(页大小))
+		List<Dept> depts = query.list();// 立即加载，生成一条sql语句，查询所有记录
+		for (Dept dept1 : depts) {
+			System.out.println(dept1.getDeptName());
+		}
+	}
+
+	///////////////// HQL投影查询(查询部分列)/////////////////////////////////////
+
+	// 查询单个字段
+	@SuppressWarnings("unchecked")
+	public void findDeptName() {
+		String hql = "select deptName from Dept";
+		Query query = session.createQuery(hql);
+		List<String> deptNames = query.list();// 立即加载，生成一条sql语句，查询所有记录
+		for (String deptName : deptNames) {
+			System.out.println(deptName);
+		}
+	}
+
+	// 查询多个字段
+	@SuppressWarnings("unchecked")
+	public void findDept() {
+		String hql = "select deptNo,deptName from Dept";
+		Query query = session.createQuery(hql);
+		List<Object[]> list = query.list();// 立即加载，生成一条sql语句，查询所有记录
+		for (Object[] objects : list) {
+			for (Object object : objects) {
+				System.out.println(object);
+			}
+		}
+	}
+
+	// 依靠构造方法查询多个字段
+	@SuppressWarnings("unchecked")
+	public void findDept2() {
+		String hql = "select new Dept(deptNo,deptName,location) from Dept";
+		Query query = session.createQuery(hql);
+		List<Dept> depts = query.list();// 立即加载，生成一条sql语句，查询所有记录
+		for (Dept dept : depts) {
+			System.out.println(dept.getDeptNo());
+			System.out.println(dept.getDeptName());
+			System.out.println(dept.getLocation());
+		}
+	}
+
+	public static void main(String[] args) {
+		Transaction transaction = session.beginTransaction();
+		try {
+			new Test().findDept2();
+			transaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			transaction.rollback();
+		}
+	}
+
+}

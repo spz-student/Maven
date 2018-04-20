@@ -1,0 +1,97 @@
+package com.bdqn.spz.annotatehibernate.entity;
+
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+
+/**
+ * Pro entity. @author MyEclipse Persistence Tools
+ */
+@Entity
+@Table(name="PRO"
+    ,schema="SCOTT"
+)
+
+public class Pro  implements java.io.Serializable {
+
+
+    // Fields    
+
+     private Integer proid;
+     private String proname;
+     private Set<Emp> emps = new HashSet<Emp>(0);
+
+
+    // Constructors
+
+    /** default constructor */
+    public Pro() {
+    }
+
+	/** minimal constructor */
+    public Pro(Integer proid, String proname) {
+        this.proid = proid;
+        this.proname = proname;
+    }
+    
+    /** full constructor */
+    public Pro(Integer proid, String proname, Set<Emp> emps) {
+        this.proid = proid;
+        this.proname = proname;
+        this.emps = emps;
+    }
+
+   
+    // Property accessors
+    @Id 
+    
+    @Column(name="PROID", unique=true, nullable=false, precision=6, scale=0)
+
+    public Integer getProid() {
+        return this.proid;
+    }
+    
+    public void setProid(Integer proid) {
+        this.proid = proid;
+    }
+    
+    @Column(name="PRONAME", nullable=false, length=100)
+
+    public String getProname() {
+        return this.proname;
+    }
+    
+    public void setProname(String proname) {
+        this.proname = proname;
+    }
+@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+    @JoinTable(name="PRO_EMP", schema="SCOTT", joinColumns = { 
+        @JoinColumn(name="PROID", nullable=false, updatable=false) }, inverseJoinColumns = { 
+        @JoinColumn(name="EMPNO", nullable=false, updatable=false) })
+
+    public Set<Emp> getEmps() {
+        return this.emps;
+    }
+    
+    public void setEmps(Set<Emp> emps) {
+        this.emps = emps;
+    }
+   
+
+
+
+
+
+
+
+
+}

@@ -1,0 +1,27 @@
+/**
+ * 
+ */
+package com.bdqn.psz.autohibernate.test;
+
+import java.util.List;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+
+import com.bdqn.psz.autohibernate.util.HibernateSessionFactory;
+
+/**
+ * @author  ©≈Ù’Ò
+ *
+ */
+public class Test {
+
+	
+	private static Session session = HibernateSessionFactory.getSession();
+	
+	public static void main(String[] args) {
+		String hql="from Dept";
+		Query query=session.createQuery(hql);
+		List<Dept> query.list();
+	}
+}

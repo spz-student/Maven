@@ -1,0 +1,146 @@
+package com.bdqn.spz.scott.test;
+
+
+import org.hibernate.*;
+import org.junit.Test;
+
+import cn.hibernatedemo.dao.HibernateUtil;
+
+public class AggregationTest {
+
+    /**
+     * 统计部门个数�?
+     */
+    @Test
+    public void eg_countDept() {
+        Transaction tx = null;
+        try {
+            tx = HibernateUtil.currentSession().beginTransaction();
+            Long count = (Long) HibernateUtil.currentSession().createQuery(
+                    "select count(id) from Dept").uniqueResult();
+            System.out.println(count);
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
+    }
+
+    /**
+     * 统计员工工资总和�?
+     */
+    @Test
+    public void eg_totalSalary() {
+        Transaction tx = null;
+        try {
+            tx = HibernateUtil.currentSession().beginTransaction();
+            Double salarySum = (Double) HibernateUtil.currentSession().createQuery(
+                    "select sum(e.salary) from Emp e").uniqueResult();
+            System.out.println(salarySum);
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
+    }
+
+    /**
+     * 统计员工�?低工资�??
+     */
+    @Test
+    public void eg_MinSalary() {
+        Transaction tx = null;
+        try {
+            tx = HibernateUtil.currentSession().beginTransaction();
+            Double salary = (Double) HibernateUtil.currentSession().createQuery(
+                    "select min(e.salary) from Emp e").uniqueResult();
+            System.out.println(salary);
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
+    }
+
+    /**
+     * 统计员工�?高工资�??
+     */
+    @Test
+    public void eg_MaxSalary() {
+        Transaction tx = null;
+        try {
+            tx = HibernateUtil.currentSession().beginTransaction();
+            Double salary = (Double) HibernateUtil.currentSession().createQuery(
+                    "select max(e.salary) from Emp e").uniqueResult();
+            System.out.println(salary);
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
+    }
+
+    /**
+     * 统计员工平均工资�?
+     */
+    @Test
+    public void eg_AvgSalary() {
+        Transaction tx = null;
+        try {
+            tx = HibernateUtil.currentSession().beginTransaction();
+            Double salary = (Double) HibernateUtil.currentSession().createQuery(
+                    "select avg(e.salary) from Emp e").uniqueResult();
+            System.out.println(salary);
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
+    }
+
+    /**
+     * 统计�?低工资�?�最高工资以及平均工资�??
+     */
+    @Test
+    public void eg_Salary() {
+        Transaction tx = null;
+        try {
+            tx = HibernateUtil.currentSession().beginTransaction();
+            Object[] salarys = (Object[]) HibernateUtil.currentSession().createQuery(
+                    "select min(salary), max(salary), avg(salary) from Emp")
+                    .uniqueResult();
+            System.out
+                    .println(salarys[0] + ", " + salarys[1] + ", " + salarys[2]);
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
+    }
+
+    /**
+     * 判断统计结果的数据类型�??
+     */
+    @Test
+    public void eg_getType() {
+        Transaction tx = null;
+        try {
+            tx = HibernateUtil.currentSession().beginTransaction();
+            Object count = HibernateUtil.currentSession().createQuery(
+                    "select count(distinct job) from Emp ").uniqueResult();
+            System.out.println(count.getClass().getName());
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
+    }
+
+}

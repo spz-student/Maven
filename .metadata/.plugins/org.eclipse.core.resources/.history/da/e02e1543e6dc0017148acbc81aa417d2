@@ -1,0 +1,20 @@
+/**
+ * 
+ */
+package com.bdqn.psz.autohibernate.test;
+
+import org.hibernate.Session;
+
+/**
+ * @author  ©≈Ù’Ò
+ *
+ */
+public class Test {
+
+	
+	private static Session session = HibernateUtil.currentSession();
+	
+	public static void main(String[] args) {
+		
+	}
+}

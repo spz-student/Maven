@@ -1,0 +1,38 @@
+<Beans>
+    <Bean Class="com.genuitec.eclipse.sqlexplorer.utils.ConnectionProfile">
+        <activate>false</activate>
+        <driverIdentifier Class="net.sourceforge.squirrel_sql.fw.id.UidIdentifier">
+            <string>-1acfe6a0:15e3084af2c:-7fde</string>
+        </driverIdentifier>
+        <identifier Class="net.sourceforge.squirrel_sql.fw.id.UidIdentifier">
+            <string>-1acfe6a0:15e3084af2c:-7fdd</string>
+        </identifier>
+        <name>MyEclipse Derby</name>
+        <password encryption="true">gFOjO/OmrJ8m4/rtM2cMIw==</password>
+        <promptForPassword>false</promptForPassword>
+        <schema Indexed="true"/>
+        <schemaDisplayPolicy>0</schemaDisplayPolicy>
+        <url>jdbc:derby://localhost:1527/myeclipse</url>
+        <userName>classiccars</userName>
+    </Bean>
+    <Bean Class="com.genuitec.eclipse.sqlexplorer.utils.ConnectionProfile">
+        <activate>false</activate>
+        <driverIdentifier Class="net.sourceforge.squirrel_sql.fw.id.UidIdentifier">
+            <string>-164305e7:160670c519a:-7f71</string>
+        </driverIdentifier>
+        <identifier Class="net.sourceforge.squirrel_sql.fw.id.UidIdentifier">
+            <string>-164305e7:160670c519a:-7f94</string>
+        </identifier>
+        <name>bdqn_house</name>
+        <password encryption="true">nCFGvnCRudwG8NlQt1A+8Q==</password>
+        <promptForPassword>false</promptForPassword>
+        <schema Indexed="true">
+            <Bean Class="net.sourceforge.squirrel_sql.fw.util.beanwrapper.StringWrapper">
+                <string>BDQN_HOUSE</string>
+            </Bean>
+        </schema>
+        <schemaDisplayPolicy>2</schemaDisplayPolicy>
+        <url>jdbc:oracle:thin:@127.0.0.1:1521:orcl</url>
+        <userName>bdqn_house</userName>
+    </Bean>
+</Beans>

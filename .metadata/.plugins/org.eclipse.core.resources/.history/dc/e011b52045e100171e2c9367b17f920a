@@ -1,0 +1,13 @@
+/**
+ * 
+ */
+package com.struts2.action;
+
+/**
+ * @author 施鹏振
+ * date 2017年12月15日
+ * time 上午11:07:33
+ */
+public class LoginAc {
+
+}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<!-- 创建一个default包，继承自Struts2的struts-default包 -->
+	<package name="default" namespace="/" extends="struts-default">
+		<!-- 接收处理用户的/helloWorld.action请求 ， 并根据返回结果，完成跳转 -->
+		<action name="helloWorld" class="com.struts2.action.HelloWorldAction">
+			<!-- 结果为"helloWorld"时，跳转至helloWorld.jsp页面 -->
+			<result name="helloWorld">helloWorld.jsp</result>
+		</action>
+		<action name="login" class="com.struts2.action.LoginAction">
+			<!-- 结果为“success”时，跳转至success.jsp页面 -->
+			<result name="success">success.jsp</result>
+			<!-- 结果为"error"时，跳转至fail.jsp页面 -->
+			<result name="error">fail.jsp</result>
+		</action>
+		<action name="iterator" class="com.struts2.action.IteratorAction">
+			<result name="success">list.jsp</result>
+		</action>
+	</package>
+</struts>    

@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+          "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+
+		<!-- 默认它是auto的，它会自动去classpath下寻找 -->
+		<property name="javax.persistence.validation.mode">none</property>
+
+		<!-- DB Browser -->
+		<property name="myeclipse.connection.profile">MyEclipse Derby</property>
+
+		<!--使用的数据库类型 -->
+		<property name="dialect">org.hibernate.dialect.Oracle9Dialect</property>
+
+		<!--数据库JDBC驱动 -->
+		<property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+
+		<!--数据库URL -->
+		<property name="connection.url">jdbc:oracle:thin:@127.0.0.1:1521:orcl</property>
+		<!-- 用户名 -->
+		<property name="connection.username">scott</property>
+
+		<!-- 密码 -->
+		<property name="connection.password">scott</property>
+
+		<!--当前session由谁来管理 -->
+		<property name="current_session_context_class">thread</property>
+
+		<!--是否将运行期生成的SQL输出到日志以供调试 -->
+		<property name="show_sql">true</property>
+
+		<!--是否格式化SQL -->
+		<property name="format_sql">true</property>
+
+		<!-- 加载实体类映射文件 -->
+		<mapping resource="com/bdqn/psz/autohibernate/entity/Dept.hbm.xml" />
+
+	</session-factory>
+</hibernate-configuration>

@@ -1,0 +1,44 @@
+package com.bdqn.spz.autohibernate.entity;
+
+/**
+ * Pro entity. @author MyEclipse Persistence Tools
+ */
+
+public class Pro implements java.io.Serializable {
+
+	// Fields
+
+	private Integer proid;
+	private String proname;
+
+	// Constructors
+
+	/** default constructor */
+	public Pro() {
+	}
+
+	/** full constructor */
+	public Pro(Integer proid, String proname) {
+		this.proid = proid;
+		this.proname = proname;
+	}
+
+	// Property accessors
+
+	public Integer getProid() {
+		return this.proid;
+	}
+
+	public void setProid(Integer proid) {
+		this.proid = proid;
+	}
+
+	public String getProname() {
+		return this.proname;
+	}
+
+	public void setProname(String proname) {
+		this.proname = proname;
+	}
+
+}

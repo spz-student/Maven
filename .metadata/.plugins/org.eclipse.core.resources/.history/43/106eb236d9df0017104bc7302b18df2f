@@ -1,0 +1,295 @@
+package com.bdqn.spz.scott.test;
+
+import java.util.List;
+
+import org.hibernate.*;
+import org.junit.Test;
+
+import cn.hibernatedemo.dao.HibernateUtil;
+import cn.hibernatedemo.entity.Dept;
+import cn.hibernatedemo.entity.Emp;
+
+public class Eg {
+
+	/**
+	 * 查询工资高于平均工资的员工�??
+	 */
+	@SuppressWarnings("unchecked")
+    @Test
+	public void egEmp() {
+		Transaction tx = null;
+		try {
+			tx = HibernateUtil.currentSession().beginTransaction();
+			List<Emp> list = HibernateUtil.currentSession().createQuery(
+					"from Emp e where e.salary > (select avg(salary) from Emp)")
+					.list();
+			for (Emp emp : list) {
+				System.out.println(emp.getEmpName() + ", " + emp.getSalary());
+			}
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (tx != null)
+			    tx.rollback();
+		}
+	}
+
+	/**
+	 * 查询�?有员工工资都小于5000的部门，包含没有员工的部门�??
+	 */
+	@SuppressWarnings("unchecked")
+    @Test
+    public void eg8() {
+        Transaction tx = null;
+        try {
+            tx = HibernateUtil.currentSession().beginTransaction();
+            List<Dept> list = HibernateUtil.currentSession().createQuery(
+                    "from Dept d where 5000 > all(select e.salary from d.emps e)")
+                .list();
+            for (Dept dept : list) {
+                System.out.println(dept.getDeptName());
+            }
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
+    }
+	
+	/**
+	 * 查询�?有员工工资都小于5000的部门，不包括没有员工的部门�?
+	 */
+	@SuppressWarnings("unchecked")
+	@Test
+	public void eg8_1() {
+	    Transaction tx = null;
+	    try {
+	        tx = HibernateUtil.currentSession().beginTransaction();
+	        List<Dept> list = HibernateUtil.currentSession().createQuery(
+	                "from Dept d where 5000 > all(select e.salary from d.emps e)"
+	                + " and d.emps.size > 0")
+	            .list();
+	        for (Dept dept : list) {
+	            System.out.println(dept.getDeptName());
+	        }
+	        tx.commit();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        if (tx != null)
+	            tx.rollback();
+	    }
+	}
+
+	/**
+	 * 查询至少有一位员工工资低�?5000的部门�??
+	 */
+	@SuppressWarnings("unchecked")
+    @Test
+	public void eg9() {
+	    Transaction tx = null;
+        try {
+            tx = HibernateUtil.currentSession().beginTransaction();
+            List<Dept> list = HibernateUtil.currentSession().createQuery(
+                    "from Dept d where 5000 > any(select e.salary from d.emps e)")
+                    .list();
+			for (Dept dept : list) {
+                System.out.println(dept.getDeptName());
+            }
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
+	}
+
+	/**
+	 * ，查询员工工资正好是5000元的部门
+	 */
+	@SuppressWarnings("unchecked")
+    @Test
+	public void eg10() {
+	    Transaction tx = null;
+        try {
+            tx = HibernateUtil.currentSession().beginTransaction();
+            List<Dept> list = HibernateUtil.currentSession().createQuery(
+							"from Dept d where 5000 = any(select e.salary from d.emps e)")
+					.list();
+			for (Dept dept : list) {
+				System.out.println(dept.getDeptName());
+			}
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
+	}
+
+	/**
+	 * 查询员工工资正好�?5000元的部门
+	 */
+	@SuppressWarnings("unchecked")
+    @Test
+	public void eg10_1() {
+	    Transaction tx = null;
+        try {
+            tx = HibernateUtil.currentSession().beginTransaction();
+            List<Dept> list = HibernateUtil.currentSession().createQuery(
+							"from Dept d where 5000 = some(select e.salary from d.emps e)")
+					.list();
+			for (Dept dept : list) {
+				System.out.println(dept.getDeptName());
+			}
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
+	}
+
+	/**
+	 * 查询员工工资正好�?5000元的部门
+	 */
+	@SuppressWarnings("unchecked")
+    @Test
+	public void eg10_2() {
+	    Transaction tx = null;
+        try {
+            tx = HibernateUtil.currentSession().beginTransaction();
+            List<Dept> list = HibernateUtil.currentSession().createQuery(
+							"from Dept d where 5000 in (select e.salary from d.emps e)")
+					.list();
+			for (Dept dept : list) {
+				System.out.println(dept.getDeptName());
+			}
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
+	}
+
+	/**
+	 * 查询至少有一位员工的部门
+	 */
+	@SuppressWarnings("unchecked")
+    @Test
+	public void eg11() {
+	    Transaction tx = null;
+        try {
+            tx = HibernateUtil.currentSession().beginTransaction();
+            List<Dept> list = HibernateUtil.currentSession().createQuery(
+					"from Dept d where exists (from d.emps)").list();
+			for (Dept dept : list) {
+				System.out.println(dept.getDeptName());
+			}
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
+	}
+
+	/**
+	 * 查询指定员工�?在部�?
+	 */
+	@SuppressWarnings("unchecked")
+    @Test
+	public void eg12() {
+	    // 构建查询条件
+	    Emp emp = new Emp();
+	    emp.setEmpNo(7934);
+	    
+	    Transaction tx = null;
+        try {
+            tx = HibernateUtil.currentSession().beginTransaction();
+            List<Dept> list = HibernateUtil.currentSession()
+					.createQuery("from Dept d where ? in elements(d.emps)")
+					.setParameter(0, emp).list();
+			for (Dept dept : list) {
+				System.out.println(dept.getDeptName());
+			}
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
+	}
+
+	/**
+	 * 查询指定员工�?在部�?
+	 */
+	@SuppressWarnings("unchecked")
+    @Test
+	public void eg12_1() {
+	    // 构建查询条件
+        Emp emp = new Emp();
+        emp.setEmpNo(7934);
+        
+        Transaction tx = null;
+        try {
+            tx = HibernateUtil.currentSession().beginTransaction();
+            List<Dept> list = HibernateUtil.currentSession()
+					.createQuery("from Dept d where ? in (from d.emps)")
+					.setParameter(0, emp).list();
+			for (Dept dept : list) {
+				System.out.println(dept.getDeptName());
+			}
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
+	}
+
+	/**
+	 * 查询员工个数大于5的部�?
+	 */
+	@SuppressWarnings("unchecked")
+    @Test
+	public void eg13() {
+	    Transaction tx = null;
+        try {
+            tx = HibernateUtil.currentSession().beginTransaction();
+            List<Dept> list = HibernateUtil.currentSession().createQuery(
+					"from Dept d where d.emps.size > 5").list();
+			for (Dept dept : list) {
+				System.out.println(dept.getDeptName());
+			}
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
+	}
+
+	/**
+	 * 查询员工个数大于5的部�?
+	 */
+	@SuppressWarnings("unchecked")
+    @Test
+	public void eg13_1() {
+	    Transaction tx = null;
+        try {
+            tx = HibernateUtil.currentSession().beginTransaction();
+            List<Dept> list = HibernateUtil.currentSession().createQuery(
+					"from Dept d where size(d.emps) > 5").list();
+			for (Dept dept : list) {
+				System.out.println(dept.getDeptName());
+			}
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
+	}
+}

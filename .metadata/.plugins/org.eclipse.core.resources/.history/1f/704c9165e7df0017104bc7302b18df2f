@@ -1,0 +1,79 @@
+package com.bdqn.spz.annotatehibernate.entity;
+
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+/**
+ * Pro entity. @author MyEclipse Persistence Tools
+ */
+@Entity
+@Table(name = "PRO", schema = "SCOTT")
+
+public class Pro implements java.io.Serializable {
+
+	// Fields
+
+	private Integer proid;
+	private String proname;
+	private Set<Emp> Emps = new HashSet<Emp>(0);
+
+	// Constructors
+
+	/** default constructor */
+	public Pro() {
+	}
+
+	/** minimal constructor */
+	public Pro(Integer proid, String proname) {
+		this.proid = proid;
+		this.proname = proname;
+	}
+
+	/** full constructor */
+	public Pro(Integer proid, String proname, Set<Emp> Emps) {
+		this.proid = proid;
+		this.proname = proname;
+		this.Emps = Emps;
+	}
+
+	// Property accessors
+	@Id
+
+	@Column(name = "PROID", unique = true, nullable = false, precision = 6, scale = 0)
+
+	public Integer getProid() {
+		return this.proid;
+	}
+
+	public void setProid(Integer proid) {
+		this.proid = proid;
+	}
+
+	@Column(name = "PRONAME", nullable = false, length = 100)
+
+	public String getProname() {
+		return this.proname;
+	}
+
+	public void setProname(String proname) {
+		this.proname = proname;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "pro")
+
+	public Set<Emp> getEmps() {
+		return this.Emps;
+	}
+
+	public void setEmps(Set<Emp> Emps) {
+		this.Emps = Emps;
+	}
+
+}

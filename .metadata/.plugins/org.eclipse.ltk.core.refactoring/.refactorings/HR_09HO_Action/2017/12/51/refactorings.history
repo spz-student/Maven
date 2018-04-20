@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy 4 elements to &apos;WebRoot&apos;&#x0D;&#x0A;－ 原始项目：“HR_09HO_Action”&#x0D;&#x0A;－ 目标元素：“WebRoot”&#x0D;&#x0A;－ 原始元素：&#x0D;&#x0A;JavaRefactoringDescriptorComment_textual_move_only=仅移动文本scripts&#x0D;&#x0A;JavaRefactoringDescriptorComment_textual_move_only=仅移动文本page&#x0D;&#x0A;JavaRefactoringDescriptorComment_textual_move_only=仅移动文本css&#x0D;&#x0A;JavaRefactoringDescriptorComment_textual_move_only=仅移动文本images" description="复制文件夹" element1="WebRoot/scripts" element2="WebRoot/page" element3="WebRoot/css" element4="WebRoot/images" files="0" flags="589830" folders="4" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1513564001318" target="/Struts2/WebRoot" units="0" version="1.0"/>
+</session>

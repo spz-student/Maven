@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<!--class的lazy属性:true表示延迟加载(默认值),false表示立即加载  -->
+    <class name="com.bdqn.spz.hibernate.entity.Grade" table="Grade" lazy="true" dynamic-update="true">
+        <!--年级编号(主键) -->
+        <id name="gradeId" column="gradeId" type="java.lang.Integer">
+        	<!--generator:id元素的子元素,用于指定主键的生成策略(主键生成器)。
+        		 class属性：指定具体主键生成策略
+        		   assigned:主键由应用程序负责生成，无须Hibernate；这是没有指定<generator>元素
+        		   increment:对类型为long、short或int的主键，以自动增长的方式生成主键的值。主键按数值顺序递增，增量为1
+        		   identity:对如SQL Service、DB2、MySQL等支持标识列的数据库，可使用该主键生成策略生成自动增长主键，但要在数据库中将相应的主键字段设置为标识列
+        		   sequence:对如Oracle、DB2等支持序列的数据库,可使用该主键生成策略生成自动增长主键，通过子元素param可传入数据库中序列的名称
+        		    	<generator class="sequence">
+        		    		<param name="sequence">序列名</param>
+           			 	</generator>
+           			native:由Hibernate根据底层数据库自行判断采用何种主键生成策略,即由使用的数据库生成主键的值
+        	  -->
+            <generator class="assigned" />
+        </id>
+        <!-- 年纪名称 -->
+        <property name="gradeName"  column="gradeName" type="java.lang.String"/>
+        <!--学生集合(一对多) -->
+        <!--
+        set/list/bag级联
+	        cascade属性
+	        	none:当Session操纵当前对象时，忽略其他关联的对象。他是cascade属性的默认值
+	        	save-update:当通过Session的save()、update()及saveOrUpdate()方法来保存或更新当前对象时，
+	        		级联保存所有关联的瞬时状态的对象，并且级联更新所有关联的游离状态的对象
+	        	delete:当通过Session的delete()方法删除当前对象时，会级联删除所有关联的对象
+	        	all:包含save-update和delete
+	        inverse属性:指定了关联关系中的方向(把一方的值改成true可以提高性能)
+	        	false:这是默认值，表示为主动方，负责维护关联关系(相对name指定的对象说的)
+	        	true:
+	        lazy属性
+	        	proxy:延迟加载(默认值)
+	        	no-proxy:无代理延迟加载(需要在编译期间进行字节码增强操作,否则运行情况和proxy时相同，因此很少用到)
+	        	false:立即加载
+        -->
+        <!-- <set name="students">
+        	<key column="gradeId" not-null="true"></key>
+        	<one-to-many class="com.bdqn.spz.hibernate.entity.Student"/>
+        </set> -->
+        <!-- <list name="students">
+        	<key column="gradeId"></key>
+        	index用于排序
+        	 <index column="studentNo"></index>
+        	<one-to-many class="com.bdqn.spz.hibernate.entity.Student"/>
+        </list> -->
+        <!-- 可以用于list和set集合 -->
+        <bag name="students" cascade="" inverse="true">
+        	<key column="gradeId"></key>
+        	<one-to-many class="com.bdqn.spz.hibernate.entity.Student"/>
+        </bag>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,36 @@
+/**
+ * 
+ */
+package com.bdqn.spz.scott.entity;
+
+/**
+ * @author 施鹏振
+ * date 2017年12月11日
+ * time 下午4:42:53
+ */
+@SuppressWarnings("serial")
+public class Pro implements java.io.Serializable{
+
+	//项目ID
+	private Integer proId;
+	
+	//项目名称
+	private String proName;
+
+	public Integer getProId() {
+		return proId;
+	}
+
+	public void setProId(Integer proId) {
+		this.proId = proId;
+	}
+
+	public String getProName() {
+		return proName;
+	}
+
+	public void setProName(String proName) {
+		this.proName = proName;
+	}
+	
+}

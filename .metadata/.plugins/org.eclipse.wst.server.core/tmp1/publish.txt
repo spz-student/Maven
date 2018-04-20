@@ -1,0 +1,4 @@
+#Tomcat publish data
+#Fri Mar 09 13:59:43 CST 2018
+org.eclipse.jst.jee.server\:App=C\:\\Users\\xiaomi\\Leaning\\Tomcat\\tomcat 9.0\\webapps\\App
+org.eclipse.jst.jee.server\:Struts2=C\:\\Users\\xiaomi\\Leaning\\Tomcat\\tomcat9.0\\webapps\\Struts2
