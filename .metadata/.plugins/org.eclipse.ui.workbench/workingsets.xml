@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<workingSetManager>
-<workingSet editPageId="org.eclipse.ui.resourceWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1512831013814_2" label="maven" name="maven">
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/maven-module1" type="4"/>
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/maven" type="4"/>
-</workingSet>
-<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1504052552527_0" label="窗口工作集" name="Aggregate for window 1504052552526"/>
-<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1504052649115_1" label="窗口工作集" name="Aggregate for window 1504052649115"/>
-</workingSetManager>

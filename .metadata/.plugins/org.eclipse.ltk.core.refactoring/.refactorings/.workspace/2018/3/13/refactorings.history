@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">&#x0A;<refactoring comment="删除资源“maven”" deleteContents="false" description="删除资源“maven”" element1="/maven" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1522052412631"/>&#x0A;<refactoring comment="删除资源“RemoteSystemsTempFiles”" deleteContents="false" description="删除资源“RemoteSystemsTempFiles”" element1="/RemoteSystemsTempFiles" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1522052417354"/>
-</session>

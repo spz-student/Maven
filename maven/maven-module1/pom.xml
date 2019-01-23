@@ -6,23 +6,45 @@
 		<artifactId>maven</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
+
 	<artifactId>maven-module1</artifactId>
 	<packaging>jar</packaging>
 	<name>maven-module1</name>
 	<description>maven-module1 project for AggregationMaven</description>
 
+	<dependencies>
+		<!-- 配置本地jar依赖 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.47</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/fastjson-1.2.47.jar</systemPath>
+		</dependency>
+	</dependencies>
+
 	<!--插件依赖 -->
 	<build>
-		<!-- 生成可执行的jar -->
-		<finalName>spz-maven</finalName><!--生成jar的名字-->
+		<!--包的名称 -->
+		<finalName>maven-module1</finalName>
 		<plugins>
+			<!-- 生成可执行的jar -->
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
 					<charset>${project.build.sourceEncoding}</charset>
 					<encoding>${project.build.sourceEncoding}</encoding>
+					<executions>
+						<execution>
+							<phase>package</phase>
+							<goals>
+								<goal>jar</goal>
+							</goals>
+						</execution>
+					</executions>
 					<archive>
 						<manifest>
 							<!-- 把jar依赖的jar放到lib下 -->
@@ -35,25 +57,67 @@
 					</archive>
 				</configuration>
 			</plugin>
+
+			<!-- assembly打包方式 ,可以通过配置文件配置需要打的内容 -->
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
-				<configuration>
-					<descriptors>
-						<descriptor>src/main/assembly/package.xml</descriptor>
-					</descriptors>
-				</configuration>
-				<!-- 插件目的 -->
 				<executions>
 					<execution>
-						<id>make-assembly</id>
+						<id>make_jar</id>
 						<phase>package</phase>
 						<goals>
 							<goal>single</goal>
 						</goals>
+						<configuration>
+							<!-- 指定包名称 -->
+							<!-- <finalName>${jar.name}</finalName> -->
+							<appendAssemblyId>false</appendAssemblyId>
+							<skipAssembly>false</skipAssembly>
+							<descriptors>
+								<descriptor>src/main/resources/assembly/assembly_jar.xml</descriptor>
+							</descriptors>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
 		</plugins>
+
+		<!--防止丢失*.xml文件 -->
+		<resources>
+			<resource>
+				<!-- targetPath:指定build资源到哪个目录，默认是base directory -->
+				<!-- <targetPath>${project.build.directory}/classes</targetPath> -->
+				<!-- directory:指定属性文件的目录，build的过程需要找到它，并且将其放到targetPath下，默认的directory是${basedir}/src/main/resources -->
+				<directory>src/main/java</directory>
+				<!--filtering:指定是否将filter文件(即build下的filters里定义的*.property文件) 的变量值在 这个resource文件有效,例如上面就指定那些变量值在configuration文件无效。 -->
+				<filtering>true</filtering>
+				<!-- includes:指定包含文件的patterns,符合样式并且在directory目录下的文件将会包含进project的资源文件。 -->
+				<includes>
+					<include>**/*.xml</include>
+					<include>**/*.properties</include>
+				</includes>
+				<!-- excludes:指定不包含在内的patterns,如果inclues与excludes有冲突，那么excludes胜利，那些符合冲突的样式的文件是不会包含进来的。 -->
+				<!-- excludes:指定不包含在内的patterns,如果inclues与excludes有冲突，那么excludes胜利，那些符合冲突的样式的文件是不会包含进来的。 -->
+			</resource>
+		</resources>
 	</build>
 
+
+
+	<reporting>
+		<!-- 执行maven site时，是否生成报表，默认false -->
+		<excludeDefaults></excludeDefaults>
+		<!-- 报表的生成目录，默认为${basedir}/target/site -->
+		<outputDirectory>${basedir}/target/site</outputDirectory>
+		<plugins>
+			<!-- jxr：jxr用于生成项目主要来源的交叉引用页面。生成的JXR文件可以链接到项目的javadoc。 jxr：aggregate用于生成项目主要来源的聚合交叉引用页面。生成的JXR文件可以链接到项目的javadoc。 
+				另一方面，jxr：test-jxr用于生成项目测试源的交叉引用页面。 另一方面，jxr：test-aggregate用于生成项目测试源的聚合交叉引用页面。 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jxr-plugin</artifactId>
+				<version>2.5</version>
+			</plugin>
+		</plugins>
+	</reporting>
 </project>

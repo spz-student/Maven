@@ -14,7 +14,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<maven.version>2.4</maven.version>
 	</properties>
 
 	<!-- jar依赖 -->
@@ -28,8 +27,10 @@
 
 	<!-- 插件依赖 -->
 	<build>
-		<plugins><!--上传jar -->
+		<plugins>
+			<!--上传包 -->
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-deploy-plugin</artifactId>
 				<configuration>
 					<!-- 值为true不上传,false上传,默认false -->
@@ -38,6 +39,7 @@
 			</plugin>
 			<!--上传javadoc(文档) -->
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<configuration>
 					<charset>${project.build.sourceEncoding}</charset>
@@ -46,7 +48,8 @@
 				<!--执行标志 -->
 				<executions>
 					<execution>
-						<id>springboot-doc</id>
+						<id>javadoc</id>
+						<!-- <phase>package</phase> -->
 						<!--目标任务 -->
 						<goals>
 							<goal>jar</goal>
@@ -56,6 +59,7 @@
 			</plugin>
 			<!-- 上传source(注释) -->
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
 				<configuration>
 					<charset>${project.build.sourceEncoding}</charset>
@@ -64,7 +68,8 @@
 				<!--执行标志 -->
 				<executions>
 					<execution>
-						<id>springboot-source</id>
+						<id>javasource</id>
+						<!-- <phase>package</phase> -->
 						<!--目标任务 -->
 						<goals>
 							<goal>jar</goal>
@@ -72,16 +77,55 @@
 					</execution>
 				</executions>
 			</plugin>
+
+			<!-- Gpg Signature -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<!-- <version>1.6</version> -->
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- 用于检查代码 -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<configuration>
+					<findbugsXmlOutput>true</findbugsXmlOutput>
+					<findbugsXmlWithMessages>true</findbugsXmlWithMessages>
+					<xmlOutput>true</xmlOutput>
+				</configuration>
+			</plugin>
+
+			<!-- 内置tomcat -->
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<configuration>
+					<port>8080</port>
+					<path>/${name}</path>
+					<uriEncoding>${encoding.version}</uriEncoding>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
-
+	<!-- 设定主仓库，按设定顺序进行查找。 -->
 	<repositories>
 		<repository>
-			<id>nexus</id>
+			<id>nexus-releases</id>
 			<name>local private nexus</name>
 			<layout>default</layout>
-			<url>http://my.repository.com/repo/path</url>
+			<!-- <url>http://maven.aliyun.com/nexus/content/groups/public</url> -->
+			<url>https://www.shipengzhen.top/nexus/content/groups/public/</url>
 			<releases>
 				<enabled>true</enabled>
 				<updatePolicy>always</updatePolicy>
@@ -92,19 +136,29 @@
 			</snapshots>
 		</repository>
 	</repositories>
+	<!-- 设定插件仓库 -->
+	<pluginRepositories>
+		<pluginRepository>
+			<id>nexus-releases</id>
+			<name>local private nexus</name>
+			<!-- <url>http://maven.aliyun.com/nexus/content/groups/public</url> -->
+			<url>https://www.shipengzhen.top/nexus/content/groups/public/</url>
+		</pluginRepository>
+	</pluginRepositories>
+
 	<!-- 用于配置分发管理，配置相应的产品发布信息,主要用于发布，在执行mvn deploy后表示要发布的位置(发布到私服的位置) -->
 	<distributionManagement>
 		<!-- 上传后不可更改(有较强的格式限制,版本号唯一) -->
 		<repository>
 			<id>nexus-releases</id>
 			<name>Nexus Release Repository</name>
-			<url>http://localhost:8081/repository/maven-releases/</url>
+			<url>https://www.shipengzhen.top/nexus/content/repositories/releases/</url>
 		</repository>
 		<!-- 上传后可更改(版本号带SNAPSHOT后缀使用这个) -->
 		<snapshotRepository>
 			<id>nexus-snapshots</id>
 			<name>Nexus Snapshot Repository</name>
-			<url>http://localhost:8081/repository/maven-snapshots/</url>
+			<url>https://www.shipengzhen.top/nexus/content/repositories/snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 
