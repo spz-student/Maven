@@ -1,0 +1,3 @@
+优先级:META/resources>resources>static>public(默认只有这4个文件夹可以放静态资源)
+html页面必须放在templates文件夹中
+1.META/resources

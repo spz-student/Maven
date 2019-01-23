@@ -1,0 +1,319 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<!--父依赖,(Spring Boot支持) -->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.8.RELEASE</version>
+		<relativePath /><!-- lookup parent from repository -->
+	</parent>
+	<!-- groupId : 组织标识，例如：org.codehaus.mojo，在M2_REPO目录下，将是: org/codehaus/mojo目录。(包名中项目名前面的部分) -->
+	<groupId>com.bdqn.spz</groupId>
+	<!-- artifactId : 项目名称，例如：my-project，在M2_REPO目录下，将是：org/codehaus/mojo/my-project目录。 -->
+	<artifactId>maven-springboot</artifactId>
+	<!-- version : 版本号，例如：1.0，在M2_REPO目录下，将是：org/codehaus/mojo/my-project/1.0目录。 -->
+	<version>0.0.1-SNAPSHOT</version>
+	<!-- packaging : 打包的格式，可以为：pom , jar , maven-plugin , ejb , war , ear , 
+		rar , par -->
+	<packaging>jar</packaging>
+	<!-- maven名称 -->
+	<name>SpringBoot-Maven</name>
+	<!-- maven描述 -->
+	<description>SpringBoot-Maven project for Spring Boot</description>
+
+	<!--配置成员变量 -->
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<webVersion>3.1</webVersion>
+		<java.version>1.8</java.version>
+		<!-- mybatis版本号 -->
+		<mybatis.version>3.3.1</mybatis.version>
+		<!-- mybatis-Spring整合 -->
+		<mybatis-spring.version>1.2.5</mybatis-spring.version>
+	</properties>
+
+	<!-- jar依赖 -->
+	<dependencies>
+		<!--支持 Web 应用开发，包含 Tomcat 和 spring-mvc。 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+			<!-- scope:jar的作用范围 值: compile:默认值,会随项目一起被打入jar包 provided:当前jar不会被打入jar包 
+				test:junit测试时 runtime:mian执行时 -->
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+
+		<!--日志支持 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j2</artifactId>
+		</dependency>
+		<dependency><!-- 加上这个才能辨认到log4j2.yml文件  -->
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-yaml</artifactId>
+		</dependency>
+
+		<!--模板引擎(对页面的支持)，有很多种， 什么freemarker什么的， 这个thymeleaf是官方推荐的，具体可以百度 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+
+		<!--支持使用 JDBC 访问数据库 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+
+		<!--添加适用于生产环境的功能，如性能指标和监测等功能。 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+		<!--devtools可以实现页面热部署(即页面修改后会立即生效,还需要在application.properties文件中配置spring.thymeleaf.cache=false) 
+			他会监听classpath下的文件变动,并且会立即重启应用(发生在保存时机),注意其采用的是虚拟机机制，该项重启是很快的 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- 监控项目(项目信息)http://localhost:8080/druid/login.html -->
+		<!-- https://mvnrepository.com/artifact/com.alibaba/druid -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>1.1.5</version>
+		</dependency>
+
+		<!--查看(监控)控制器信息 http://localhost:8080/swagger-ui.html -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.6.1</version>
+		</dependency>
+
+		<!-- 分页 -->
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper</artifactId>
+			<version>4.2.1</version>
+		</dependency>
+
+		<!-- junit测试 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- <dependency> <groupId>junit</groupId> <artifactId>junit</artifactId> 
+			<scope>test</scope> </dependency> -->
+
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- 内嵌tomcat -->
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-jdbc</artifactId>
+		</dependency>
+
+		<!-- 数据库 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+
+
+		<!-- <dependency> <groupId>org.mybatis.spring.boot</groupId> <artifactId>mybatis-spring-boot-starter</artifactId> 
+			<version>1.2.2</version> </dependency> -->
+
+		<!-- mybatis -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>${mybatis.version}</version>
+		</dependency>
+
+		<!-- mybatis-spring整合 -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>${mybatis-spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.mangofactory</groupId>
+			<artifactId>swagger-springmvc</artifactId>
+			<version>0.9.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.1.43</version>
+		</dependency>
+		<dependency>
+			<groupId>org.scala-lang</groupId>
+			<artifactId>scala-library</artifactId>
+			<version>2.11.0</version>
+		</dependency>
+	</dependencies>
+
+	<!--插件依赖 -->
+	<build>
+		<plugins>
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-compiler-plugin</artifactId> 
+				<version>3.5.1</version>$NO-MVN-MAN-VER$ <configuration> <skipTests>true</skipTests> 
+				<source>${java.version}</source> <target>${java.version}</target> <charset>${project.build.sourceEncoding}</charset> 
+				<encoding>${project.build.sourceEncoding}</encoding> </configuration> </plugin> -->
+			<!--用于将应用打成可直接运行的jar(该jar就是用于成产环境的jar)值得注意的是， 如果没有引用spring-boot-stater-parent做parent，且采用了上述的devtools方式， 
+				这里也要做出相应的变动 -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<!-- <configuration> fork:如果没有该项配置devtools不起作用加上，即应用不会restart <fork>true</fork> 
+					</configuration> -->
+			</plugin>
+			<!--上传jar -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<configuration>
+					<!-- 值为true不上传,false上传,默认false -->
+					<skip>false</skip>
+				</configuration>
+			</plugin>
+			<!--上传javadoc(文档) -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<charset>${project.build.sourceEncoding}</charset>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+				<!--执行标志 -->
+				<executions>
+					<execution>
+						<id>springboot-doc</id>
+						<!--目标任务 -->
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- 上传source(注释) -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<configuration>
+					<charset>${project.build.sourceEncoding}</charset>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+				<!--执行标志 -->
+				<executions>
+					<execution>
+						<id>springboot-source</id>
+						<!--目标任务 -->
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+
+		<!-- 配合profiles使用 -->
+		<resources>
+			<resource>
+				<directory>src/main/resources/</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+	</build>
+
+	<!-- 用于配置分发管理，配置相应的产品发布信息,主要用于发布，在执行mvn deploy后表示要发布的位置(发布到私服的位置) -->
+	<distributionManagement>
+		<!-- 上传后不可更改(有较强的格式限制,版本号唯一) -->
+		<repository>
+			<id>nexus-releases</id>
+			<name>Nexus Release Repository</name>
+			<url>http://localhost:8081/repository/maven-releases/</url>
+		</repository>
+		<!-- 上传后可更改(版本号带SNAPSHOT后缀使用这个) -->
+		<snapshotRepository>
+			<id>nexus-snapshots</id>
+			<name>Nexus Snapshot Repository</name>
+			<url>http://localhost:8081/repository/maven-snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<!--可以给properties文件中的属性赋值,必须以package -Plocal方式打包 -->
+	<profiles>
+		<profile>
+			<id>sex</id>
+			<properties>
+				<com.bdqn.spz.sex>nan</com.bdqn.spz.sex>
+			</properties>
+		</profile>
+	</profiles>
+
+	<!-- 添加Spring存储库 （如果您使用.RELEASE版本，则不需要 -->
+	<!-- <repositories>
+		<repository>
+			<id>spring-snapshots</id>
+			<url>http://repo.spring.io/snapshot</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>spring-milestones</id>
+			<url>http://repo.spring.io/milestone</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id> spring-snapshots 
+		</id>
+			<url>http://repo.spring.io/snapshot </url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>spring-milestones </id>
+			<url> http://repo.spring.io/milestone </url>
+		</pluginRepository>
+	</pluginRepositories> -->
+</project>

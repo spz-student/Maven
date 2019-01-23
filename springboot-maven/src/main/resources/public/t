@@ -1,0 +1,2 @@
+优先级:META/resources>resources>static>public(默认只有这4个文件夹可以放静态资源)
+4.public
