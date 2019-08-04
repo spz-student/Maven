@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Built-By: ￦ﾖﾽ￩ﾹﾏ￦ﾌﾯ
 Class-Path: lib/mysql-connector-java-5.1.44.jar
-Build-Jdk: 1.8.0_112
+Build-Jdk: 1.8.0_212
 Created-By: Maven Integration for Eclipse
 Main-Class: com.bdqn.spz.maven.maven_module1.Test
 

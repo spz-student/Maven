@@ -290,6 +290,35 @@
 			</properties>
 		</profile>
 	</profiles>
+	
+	 <!--
+    <repositories>
+        <repository>
+            <id>mvnrepository</id>
+            <name>mvnrepository</name>
+            <url>http://134.175.96.204:8081/repository/maven-snapshots/</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>mvnrepository2</id>
+            <name>mvnrepository</name>
+            <url>http://134.175.96.204:8081/repository/maven-releases/</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    -->
 
 	<!-- 添加Spring存储库 （如果您使用.RELEASE版本，则不需要 -->
 	<!-- <repositories>
