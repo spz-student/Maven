@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<!--父依赖,(Spring Boot支持) -->
@@ -290,59 +291,21 @@
 			</properties>
 		</profile>
 	</profiles>
-	
-	 <!--
-    <repositories>
-        <repository>
-            <id>mvnrepository</id>
-            <name>mvnrepository</name>
-            <url>http://134.175.96.204:8081/repository/maven-snapshots/</url>
-            <layout>default</layout>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>mvnrepository2</id>
-            <name>mvnrepository</name>
-            <url>http://134.175.96.204:8081/repository/maven-releases/</url>
-            <layout>default</layout>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-    -->
+
+	<!-- <repositories> <repository> <id>mvnrepository</id> <name>mvnrepository</name> 
+		<url>http://134.175.96.204:8081/repository/maven-snapshots/</url> <layout>default</layout> 
+		<releases> <enabled>false</enabled> </releases> <snapshots> <enabled>true</enabled> 
+		</snapshots> </repository> <repository> <id>mvnrepository2</id> <name>mvnrepository</name> 
+		<url>http://134.175.96.204:8081/repository/maven-releases/</url> <layout>default</layout> 
+		<releases> <enabled>true</enabled> </releases> <snapshots> <enabled>false</enabled> 
+		</snapshots> </repository> </repositories> -->
 
 	<!-- 添加Spring存储库 （如果您使用.RELEASE版本，则不需要 -->
-	<!-- <repositories>
-		<repository>
-			<id>spring-snapshots</id>
-			<url>http://repo.spring.io/snapshot</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>spring-milestones</id>
-			<url>http://repo.spring.io/milestone</url>
-		</repository>
-	</repositories>
-	<pluginRepositories>
-		<pluginRepository>
-			<id> spring-snapshots 
-		</id>
-			<url>http://repo.spring.io/snapshot </url>
-		</pluginRepository>
-		<pluginRepository>
-			<id>spring-milestones </id>
-			<url> http://repo.spring.io/milestone </url>
-		</pluginRepository>
-	</pluginRepositories> -->
+	<!-- <repositories> <repository> <id>spring-snapshots</id> <url>http://repo.spring.io/snapshot</url> 
+		<snapshots> <enabled>true</enabled> </snapshots> </repository> <repository> 
+		<id>spring-milestones</id> <url>http://repo.spring.io/milestone</url> </repository> 
+		</repositories> <pluginRepositories> <pluginRepository> <id> spring-snapshots 
+		</id> <url>http://repo.spring.io/snapshot </url> </pluginRepository> <pluginRepository> 
+		<id>spring-milestones </id> <url> http://repo.spring.io/milestone </url> 
+		</pluginRepository> </pluginRepositories> -->
 </project>

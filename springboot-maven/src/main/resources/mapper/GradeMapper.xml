@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bdqn.spz.springbootmaven.dao.IGradeDao"><!--映射的接口请假 -->
-	<select id="selectGrades" resultType="Grade">
+	<select id="selectGrades" resultType="com.bdqn.spz.springbootmaven.pojo.Grade">
 		select * from Grade
 	</select>
 </mapper>
